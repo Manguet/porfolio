@@ -1,0 +1,163 @@
+---
+const categories = [
+  {
+    label: "Back-end",
+    skills: [
+      { name: "PHP 8 / Symfony", level: 95 },
+      { name: "API REST", level: 90 },
+      { name: "Go", level: 65 },
+      { name: "Python", level: 60 },
+      { name: "MySQL / MongoDB", level: 80 },
+    ],
+  },
+  {
+    label: "Front-end",
+    skills: [
+      { name: "React / Preact", level: 80 },
+      { name: "Angular", level: 65 },
+      { name: "TypeScript", level: 75 },
+      { name: "HTML / CSS / SCSS", level: 90 },
+    ],
+  },
+  {
+    label: "Sécurité & RGPD",
+    skills: [
+      { name: "OWASP Top 10", level: 85 },
+      { name: "Headers HTTP / TLS", level: 85 },
+      { name: "Audit RGPD technique", level: 80 },
+      { name: "WPScan / Observatory", level: 80 },
+    ],
+  },
+  {
+    label: "DevOps & Méthodes",
+    skills: [
+      { name: "Docker / CI/CD", level: 80 },
+      { name: "Git", level: 90 },
+      { name: "Scrum / Agile", level: 90 },
+      { name: "Architecture hexa.", level: 80 },
+    ],
+  },
+];
+
+const badges = [
+  "PHP", "Symfony", "React", "Preact", "Go", "Python", "Angular",
+  "TypeScript", "SCSS", "Docker", "MySQL", "MongoDB", "Git",
+  "CI/CD", "Scrum", "REST API", "OWASP", "TLS/SSL", "RGPD", "WPScan", "IA",
+];
+---
+
+<section class="section" id="stack" style="background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-label" data-i18n="section_stack_label">Compétences</div>
+    <h2 class="section-title"><span data-i18n="section_stack_title">Ma stack</span></h2>
+
+    <div class="badge-strip" aria-hidden="true">
+      {badges.map(b => <span class="badge mono">{b}</span>)}
+    </div>
+
+    <div class="skills-grid">
+      {categories.map((cat, ci) => (
+        <div class="skill-group" style={`--ci:${ci}`}>
+          <h3 class="group-label mono">{cat.label}</h3>
+          <div class="skill-list">
+            {cat.skills.map((s, si) => (
+              <div class="skill-row" style={`--si:${si}; --ci:${ci}`}>
+                <div class="skill-header">
+                  <span class="skill-name">{s.name}</span>
+                  <span class="skill-pct mono">{s.level}%</span>
+                </div>
+                <div class="skill-bar">
+                  <div
+                    class="skill-fill"
+                    style={`--w:${s.level}%`}
+                    role="progressbar"
+                    aria-valuenow={s.level}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .badge-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 60px; }
+
+  .badge {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--purple-light);
+    background: rgba(124,58,237,.1); border: 1px solid rgba(124,58,237,.2);
+    padding: 6px 14px; border-radius: 100px;
+    transition: background .2s, border-color .2s;
+  }
+
+  .badge:hover { background: rgba(124,58,237,.2); border-color: var(--purple); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 60px;
+  }
+
+  .skill-group {
+    animation: fadeUp 0.5s ease both;
+    animation-delay: calc(var(--ci) * 0.12s);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .group-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .skill-row {
+    animation: fadeUp 0.4s ease both;
+    animation-delay: calc((var(--ci) * 0.12s) + (var(--si) * 0.06s));
+  }
+
+  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .skill-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .skill-pct  { font-size: 12px; color: var(--text-muted); }
+
+  .skill-bar { height: 4px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
+
+  .skill-fill {
+    height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-fill.animated { width: var(--w); }
+
+  @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const fills = document.querySelectorAll<HTMLElement>('.skill-fill');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  fills.forEach(el => observer.observe(el));
+</script>

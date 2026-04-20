@@ -1,0 +1,512 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orb" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge mono">
+        <span class="badge-dot"></span>
+        <span data-i18n="hero_badge">Disponible · Freelance</span>
+      </div>
+
+      <h1 class="hero-name">
+        <span class="name-first">Benjamin</span>
+        <span class="name-last">Manguet</span>
+      </h1>
+
+      <p class="hero-title mono">
+        <span data-i18n="hero_title">Lead Tech PHP / Symfony</span>
+      </p>
+
+      <p class="hero-desc" data-i18n-html="hero_desc">
+        Architecture de solutions, encadrement technique et développement full-stack.
+        Basé en <strong>Charente-Maritime</strong> — disponible en remote ou sur site.
+      </p>
+
+      <div class="hero-tags">
+        <span class="tag" data-i18n="hero_tag1">Back-end</span>
+        <span class="tag" data-i18n="hero_tag2">Front-end</span>
+        <span class="tag" data-i18n="hero_tag3">Audit Sécurité OWASP</span>
+        <span class="tag" data-i18n="hero_tag4">DevOps / CI/CD</span>
+        <span class="tag" data-i18n="hero_tag5">Formations IA &amp; équipes</span>
+        <span class="tag" data-i18n="hero_tag6">Sous-traitance agences</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_main">Me contacter</a>
+        <a href="#services" class="btn btn-ghost" data-i18n="hero_cta_sec">Voir mes services</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-i18n="hero_stat1_num">5+</span>
+          <span class="stat-label" data-i18n="hero_stat1_lbl">ans d'expérience</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-i18n="hero_stat2_num">8</span>
+          <span class="stat-label" data-i18n="hero_stat2_lbl">ans en milieu médical</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-i18n="hero_stat3_num">Full</span>
+          <span class="stat-label" data-i18n="hero_stat3_lbl">stack & DevOps</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-deco" aria-hidden="true">
+      <div class="logo-scene">
+
+        <!-- Lueur ambiante pulsante -->
+        <div class="glow-ambient"></div>
+
+        <!-- Anneau 3 — grand, pointillé, lent CW -->
+        <div class="ring ring--3"></div>
+
+        <!-- Anneau 2 — medium, CCW avec 3 points orbitaux -->
+        <div class="ring ring--2">
+          <div class="orbit-dot" style="--delay:0s;    --radius:145px; --size:7px; --alpha:.9"></div>
+          <div class="orbit-dot" style="--delay:-4s;   --radius:145px; --size:5px; --alpha:.5"></div>
+          <div class="orbit-dot" style="--delay:-8.5s; --radius:145px; --size:4px; --alpha:.35"></div>
+        </div>
+
+        <!-- Anneau 1 — arc de gradient rapide -->
+        <div class="ring ring--1"></div>
+        <div class="ring ring--1-arc"></div>
+
+        <!-- Logo clippé en cercle -->
+        <div class="logo-clip">
+          <Image src={logo} alt="" class="logo-img" width={160} height={160} loading="eager" />
+        </div>
+
+        <!-- Halo intérieur pulsant -->
+        <div class="logo-halo"></div>
+      </div>
+
+      <div class="deco-lines">
+        <div class="dline"></div>
+        <div class="dline"></div>
+        <div class="dline"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" id="hero-scroll" aria-hidden="true">
+    <span class="mono" style="font-size:11px;letter-spacing:.15em;color:var(--text-muted)">SCROLL</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,58,237,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-orb {
+    position: absolute;
+    top: -200px; right: -100px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,.18) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    border: 1px solid rgba(124,58,237,.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    width: fit-content;
+    background: rgba(124,58,237,.08);
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .4; }
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .name-first { display: block; color: var(--white); }
+  .name-last  {
+    display: block;
+    color: var(--purple-light);
+    -webkit-text-stroke: 1px var(--purple);
+  }
+
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+
+  .hero-desc strong { color: var(--text); }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--purple-light);
+    background: rgba(124,58,237,.1);
+    border: 1px solid rgba(124,58,237,.25);
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .btn-primary { background: var(--purple); color: var(--white); }
+  .btn-primary:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(124,58,237,.35);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover {
+    border-color: var(--purple);
+    color: var(--purple-light);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats { display: flex; align-items: center; gap: 28px; }
+
+  .stat-num {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  .stat-divider { width: 1px; height: 40px; background: var(--border); }
+
+  /* ── Scène logo animée ─────────────────────────────────────────── */
+  .hero-deco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  /* Conteneur principal : 380×380, tout est positionné en absolu centré */
+  .logo-scene {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Tous les enfants directs sauf le logo : centrés absolument */
+  .logo-scene > * {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* ── Lueur ambiante ─── */
+  .glow-ambient {
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(124,58,237,.30) 0%,
+      rgba(124,58,237,.10) 40%,
+      transparent 70%);
+    animation: ambientPulse 4s ease-in-out infinite;
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  @keyframes ambientPulse {
+    0%, 100% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
+    50%       { opacity: 1;  transform: translate(-50%,-50%) scale(1.12); }
+  }
+
+  /* ── Anneaux ─── */
+  .ring {
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Anneau 3 — grand, pointillé, sens horaire lent */
+  .ring--3 {
+    width: 360px; height: 360px;
+    border: 1px dashed rgba(124,58,237,.25);
+    animation: spinCW 30s linear infinite;
+  }
+
+  /* Anneau 2 — medium, sens anti-horaire */
+  .ring--2 {
+    width: 290px; height: 290px;
+    border: 1px solid rgba(167,139,250,.2);
+    animation: spinCCW 18s linear infinite;
+  }
+
+  /* Anneau 1 — base fine */
+  .ring--1 {
+    width: 210px; height: 210px;
+    border: 1px solid rgba(124,58,237,.15);
+    animation: spinCW 24s linear infinite;
+  }
+
+  /* Anneau 1 arc de gradient — tourne rapidement */
+  .ring--1-arc {
+    width: 210px; height: 210px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background:
+      linear-gradient(var(--bg), var(--bg)) padding-box,
+      conic-gradient(
+        from 0deg,
+        #7c3aed 0deg,
+        #a78bfa 90deg,
+        transparent 200deg,
+        transparent 360deg
+      ) border-box;
+    animation: spinCW 3.5s linear infinite;
+  }
+
+  @keyframes spinCW  { to { transform: translate(-50%,-50%) rotate(360deg);  } }
+  @keyframes spinCCW { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+  /* ── Points orbitaux ─── */
+  .orbit-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: var(--size, 6px);
+    height: var(--size, 6px);
+    margin-top: calc(var(--size, 6px) / -2);
+    margin-left: calc(var(--size, 6px) / -2);
+    border-radius: 50%;
+    background: var(--purple-light);
+    box-shadow: 0 0 8px rgba(167,139,250,.8), 0 0 16px rgba(124,58,237,.5);
+    opacity: var(--alpha, .8);
+    transform-origin: calc(var(--radius, 140px) * -1) 0;
+    animation: orbitDot 12s linear infinite;
+    animation-delay: var(--delay, 0s);
+    pointer-events: none;
+  }
+
+  @keyframes orbitDot { to { transform: rotate(360deg); } }
+
+  /* ── Logo clipé ─── */
+  .logo-clip {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: logoFloat 6s ease-in-out infinite;
+    box-shadow:
+      0 0 0 2px rgba(124,58,237,.5),
+      0 0 30px rgba(124,58,237,.4),
+      0 0 60px rgba(124,58,237,.2);
+    z-index: 2;
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% { transform: translate(-50%,-50%) translateY(0px);    }
+    50%       { transform: translate(-50%,-50%) translateY(-12px);  }
+  }
+
+  /* ── Halo intérieur ─── */
+  .logo-halo {
+    width: 170px; height: 170px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(167,139,250,.18) 0%, transparent 65%);
+    animation: haloBreath 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes haloBreath {
+    0%, 100% { opacity: .6; transform: translate(-50%,-50%) scale(1);    }
+    50%       { opacity: 1;  transform: translate(-50%,-50%) scale(1.15); }
+  }
+
+  /* ── Lignes déco bas ─── */
+  .deco-lines { display: flex; gap: 8px; }
+  .dline { height: 3px; border-radius: 2px; background: var(--purple); opacity: 0.5; }
+  .dline:nth-child(1) { width: 60px; }
+  .dline:nth-child(2) { width: 30px; opacity: .3; }
+  .dline:nth-child(3) { width: 15px; opacity: .15; }
+
+  .hero-scroll {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%); /* valeur initiale, écrasée par JS */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+
+  .hero-scroll.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+    pointer-events: none;
+  }
+
+  .scroll-bar {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--purple), transparent);
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @media (max-width: 900px) {
+    .hero .container { grid-template-columns: 1fr; }
+    .hero-deco { display: none; }
+  }
+
+
+  @media (max-width: 600px) {
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .stat-divider { display: none; }
+  }
+</style>
+
+<script>
+  const scrollIndicator = document.getElementById('hero-scroll')!;
+  const hero            = document.getElementById('hero')!;
+  const deco            = hero.querySelector<HTMLElement>('.hero-deco');
+
+  function alignScrollIndicator() {
+    if (deco && getComputedStyle(deco).display !== 'none') {
+      const rect   = deco.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      scrollIndicator.style.left      = centerX + 'px';
+      scrollIndicator.style.transform = 'translateX(-50%)';
+    } else {
+      // Mobile : retour au centre
+      scrollIndicator.style.left      = '50%';
+      scrollIndicator.style.transform = 'translateX(-50%)';
+    }
+  }
+
+  // Positionnement initial + recalcul si la fenêtre change de taille
+  alignScrollIndicator();
+  window.addEventListener('resize', alignScrollIndicator, { passive: true });
+
+  // Masquage au scroll
+  window.addEventListener('scroll', () => {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    scrollIndicator.classList.toggle('hidden', heroBottom < window.innerHeight * 0.5);
+  }, { passive: true });
+</script>

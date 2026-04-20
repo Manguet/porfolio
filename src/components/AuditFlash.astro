@@ -1,0 +1,96 @@
+---
+---
+<section class="audit-flash-banner">
+  <div class="container">
+    <div class="af-inner">
+      <div class="af-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="af-content">
+        <p class="af-label mono" data-i18n="af_label">Offre de premier contact</p>
+        <p class="af-title" data-i18n="af_title">Audit Flash gratuit</p>
+        <p class="af-desc" data-i18n="af_desc">Recevez une analyse de sécurité express de votre site en 3 pages : headers HTTP, TLS, exposition de données et premiers points OWASP. Sans engagement, livré sous 48h.</p>
+      </div>
+      <a href="#contact" class="af-cta">
+        <span data-i18n="af_cta">Demander l'audit flash</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .audit-flash-banner {
+    background: linear-gradient(135deg, rgba(124,58,237,.12) 0%, rgba(76,29,149,.06) 100%);
+    border-top: 1px solid rgba(124,58,237,.25);
+    border-bottom: 1px solid rgba(124,58,237,.25);
+    padding: 40px 0;
+  }
+
+  .af-inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .af-icon {
+    flex-shrink: 0;
+    color: var(--purple-light);
+    background: rgba(124,58,237,.15);
+    border: 1px solid rgba(124,58,237,.3);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    filter: drop-shadow(0 0 12px rgba(124,58,237,.3));
+  }
+
+  .af-content { flex: 1; }
+
+  .af-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 6px;
+  }
+
+  .af-title {
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .af-desc {
+    font-size: .88rem; color: var(--text-muted);
+    line-height: 1.7; max-width: 560px;
+  }
+
+  .af-cta {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 16px 28px; border-radius: 4px;
+    white-space: nowrap;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+
+  .af-cta:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(124,58,237,.35);
+  }
+
+  @media (max-width: 900px) {
+    .af-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .af-cta { width: 100%; justify-content: center; }
+  }
+</style>
