@@ -1,43 +1,55 @@
-# Astro Starter Kit: Minimal
+# Portfolio — Benjamin Manguet
 
-```sh
-npm create astro@latest -- --template minimal
+Portfolio personnel de **Benjamin Manguet**, Développeur Full-Stack & Auditeur Sécurité Web freelance basé en Charente-Maritime.
+
+🌐 [benjaminmanguet.fr](https://benjaminmanguet.fr) *(à venir)*
+
+---
+
+## Stack
+
+- **[Astro](https://astro.build/)** — génération de site statique
+- **CSS custom properties** — design system dark/purple
+- **Vanilla JS** — i18n FR/EN, animations
+- **Netlify** — hébergement & formulaire de contact
+- **Netlify Forms** — traitement des messages sans backend
+
+## Fonctionnalités
+
+- Bilingue FR / EN (switcher en temps réel, `localStorage`)
+- Sections : Hero, Services, Audit Flash, Projets, Stack, Expérience, Contact
+- Formulaire de contact via Netlify Forms (spam honeypot inclus)
+- Réservation Calendly intégrée
+- Composant `<Image>` Astro (optimisation WebP automatique)
+- Responsive mobile-first
+
+## Structure
+
+```
+src/
+├── assets/         # Logo (optimisé via <Image>)
+├── components/     # Composants Astro (Nav, Hero, Services, ...)
+├── i18n/           # Traductions FR/EN (translations.ts)
+├── layouts/        # Layout principal
+└── pages/          # index.astro
+public/             # Favicons, manifest
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commandes
 
-## 🚀 Project Structure
+| Commande          | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Installe les dépendances                    |
+| `npm run dev`     | Serveur de développement sur `localhost:4321` |
+| `npm run build`   | Build de production dans `./dist/`          |
+| `npm run preview` | Prévisualisation du build en local          |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Contact
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Email** : benjamin.manguet@gmail.com
+- **LinkedIn** : [linkedin.com/in/benjaminmanguet](https://www.linkedin.com/in/benjaminmanguet)
+- **Malt** : [malt.fr/profile/benjaminmanguet](https://www.malt.fr/profile/benjaminmanguet)
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Licence
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT — voir [LICENSE](LICENSE)
