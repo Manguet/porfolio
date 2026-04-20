@@ -4,3 +4,21 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[redirects]]
+  from = "http://benjamin-manguet.fr/*"
+  to = "https://benjamin-manguet.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.benjamin-manguet.fr/*"
+  to = "https://benjamin-manguet.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.benjamin-manguet.fr/*"
+  to = "https://benjamin-manguet.fr/:splat"
+  status = 301
+  force = true
