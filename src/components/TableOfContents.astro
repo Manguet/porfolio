@@ -1,0 +1,107 @@
+---
+import type { Lang } from '../i18n/translations.ts';
+import { translations } from '../i18n/translations.ts';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  lang: Lang;
+}
+
+const { headings, lang } = Astro.props;
+const t = translations[lang];
+
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <aside class="toc" aria-label={t.blog_toc}>
+    <p class="toc__label mono">{t.blog_toc}</p>
+    <nav>
+      <ul class="toc__list">
+        {filteredHeadings.map((h) => (
+          <li class={`toc__item toc__item--h${h.depth}`}>
+            <a href={`#${h.slug}`} class="toc__link">{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </aside>
+)}
+
+<style>
+  .toc {
+    position: sticky;
+    top: 32px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .toc__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+
+  .toc__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .toc__item--h3 {
+    padding-left: 12px;
+  }
+
+  .toc__link {
+    display: block;
+    font-size: 0.8rem;
+    color: #555;
+    text-decoration: none;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--bg-3);
+    transition: color 0.15s;
+    line-height: 1.4;
+  }
+
+  .toc__link:hover,
+  .toc__link.is-active {
+    color: var(--purple-light);
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('.toc__link');
+  if (links.length > 0) {
+    const headingIds = Array.from(links).map((l) => l.getAttribute('href')?.slice(1) ?? '');
+    const headingEls = headingIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const link = document.querySelector<HTMLAnchorElement>(`.toc__link[href="#${id}"]`);
+          if (link) {
+            link.classList.toggle('is-active', entry.isIntersecting);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -70% 0px', threshold: 0 }
+    );
+
+    headingEls.forEach((el) => observer.observe(el));
+  }
+</script>
