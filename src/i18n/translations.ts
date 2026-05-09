@@ -179,6 +179,19 @@ export const translations = {
     hobby3: 'Piano & jeux de stratégie',
     hobby4: 'Bénévolat animalier',
 
+    // Blog
+    blog_title:        'Blog',
+    blog_latest:       'Derniers articles',
+    blog_see_all:      'Voir tous les articles →',
+    blog_back_blog:    '← Blog',
+    blog_back_home:    '← Accueil',
+    blog_toc:          'Table des matières',
+    blog_reading_time: 'min de lecture',
+    blog_by:           'Par',
+    blog_no_posts:     'Aucun article pour le moment.',
+    section_blog_label: 'Articles',
+    section_blog_title: 'Sur le blog',
+
     // Contact
     af_label:   'Offre de premier contact',
     af_title:   'Audit Flash gratuit',
@@ -376,6 +389,20 @@ export const translations = {
     hobby2: 'Tech meetups (AFUP, French Tech)',
     hobby3: 'Piano & strategy games',
     hobby4: 'Animal volunteering',
+
+    // Blog
+    blog_title:        'Blog',
+    blog_latest:       'Latest articles',
+    blog_see_all:      'See all articles →',
+    blog_back_blog:    '← Blog',
+    blog_back_home:    '← Home',
+    blog_toc:          'Table of contents',
+    blog_reading_time: 'min read',
+    blog_by:           'By',
+    blog_no_posts:     'No articles yet.',
+    section_blog_label: 'Articles',
+    section_blog_title: 'On the blog',
+
     af_label:   'First contact offer',
     af_title:   'Free Flash Audit',
     af_desc:    "Get a 3-page express security analysis of your site: HTTP headers, TLS, data exposure and initial OWASP checks. No commitment, delivered within 48h.",
