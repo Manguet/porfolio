@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+const allPosts = await getCollection('blog');
+
+const frPosts = allPosts
+  .filter((p) => p.data.lang === 'fr')
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const enPosts = allPosts
+  .filter((p) => p.data.lang === 'en')
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+---
+
+<section class="section" id="articles">
+  <div class="container">
+
+    <!-- Version FR -->
+    <div data-blog-lang="fr">
+      <div class="section-label">
+        <span class="mono" data-i18n="section_blog_label">Articles</span>
+      </div>
+      <h2 class="section-title">
+        <span data-i18n="section_blog_title">Sur le blog</span>
+      </h2>
+      {frPosts.length > 0 ? (
+        <>
+          <div class="articles-grid">
+            {frPosts.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                tags={post.data.tags}
+                slug={post.data.slug}
+                lang="fr"
+              />
+            ))}
+          </div>
+          <div class="articles-footer">
+            <a href="/blog/fr" class="articles-link mono" data-i18n="blog_see_all">
+              Voir tous les articles →
+            </a>
+          </div>
+        </>
+      ) : (
+        <p class="articles-empty mono" data-i18n="blog_no_posts">Aucun article pour le moment.</p>
+      )}
+    </div>
+
+    <!-- Version EN -->
+    <div data-blog-lang="en">
+      <div class="section-label">
+        <span class="mono" data-i18n="section_blog_label">Articles</span>
+      </div>
+      <h2 class="section-title">
+        <span data-i18n="section_blog_title">On the blog</span>
+      </h2>
+      {enPosts.length > 0 ? (
+        <>
+          <div class="articles-grid">
+            {enPosts.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                tags={post.data.tags}
+                slug={post.data.slug}
+                lang="en"
+              />
+            ))}
+          </div>
+          <div class="articles-footer">
+            <a href="/blog/en" class="articles-link mono" data-i18n="blog_see_all">
+              See all articles →
+            </a>
+          </div>
+        </>
+      ) : (
+        <p class="articles-empty mono" data-i18n="blog_no_posts">No articles yet.</p>
+      )}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  html[data-lang="fr"] [data-blog-lang="en"] { display: none; }
+  html[data-lang="en"] [data-blog-lang="fr"] { display: none; }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .articles-footer {
+    text-align: right;
+  }
+
+  .articles-link {
+    font-size: 0.85rem;
+    color: var(--purple-light);
+    text-decoration: none;
+    transition: opacity 0.2s;
+    font-weight: 600;
+  }
+
+  .articles-link:hover { opacity: 0.75; }
+
+  .articles-empty {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 900px) {
+    .articles-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .articles-grid { grid-template-columns: 1fr; }
+  }
+</style>
