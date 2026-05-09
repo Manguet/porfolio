@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 <nav class="nav" id="nav">
   <div class="container">
     <!-- Logo image -->
-    <a href="#hero" class="nav-logo" aria-label="Benjamin Manguet">
+    <a href="/" class="nav-logo" aria-label="Benjamin Manguet">
       <div class="nav-logo-wrap">
         <Image src={logo} alt="Logo Benjamin Manguet" class="nav-logo-img" width={34} height={34} loading="eager" />
       </div>
@@ -239,6 +239,15 @@ import logo from '../assets/logo.png';
   function applyLang(lang: Lang) {
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
+
+    // Sur les pages blog, naviguer vers l'URL de l'autre langue
+    const path = window.location.pathname;
+    const blogMatch = path.match(/^\/blog\/(fr|en)(\/.*)?$/);
+    if (blogMatch && blogMatch[1] !== lang) {
+      const rest = blogMatch[2] || '';
+      window.location.href = `/blog/${lang}${rest}`;
+      return;
+    }
 
     const t = translations[lang];
     document.documentElement.setAttribute('lang', lang);

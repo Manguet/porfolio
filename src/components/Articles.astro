@@ -88,8 +88,8 @@ const enPosts = allPosts
 </section>
 
 <style>
-  html[data-lang="fr"] [data-blog-lang="en"] { display: none; }
-  html[data-lang="en"] [data-blog-lang="fr"] { display: none; }
+  :global(html[data-lang="fr"]) [data-blog-lang="en"] { display: none; }
+  :global(html[data-lang="en"]) [data-blog-lang="fr"] { display: none; }
 
   .articles-grid {
     display: grid;
