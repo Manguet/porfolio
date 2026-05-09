@@ -1,0 +1,276 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import TableOfContents from '../../../components/TableOfContents.astro';
+import { translations } from '../../../i18n/translations.ts';
+import type { Lang } from '../../../i18n/translations.ts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { lang: post.data.lang, slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { lang } = Astro.params as { lang: Lang };
+const t = translations[lang];
+
+const { Content, headings } = await render(post);
+
+const wordCount = (post.body ?? '').split(/\s+/).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+const otherLang: Lang = lang === 'fr' ? 'en' : 'fr';
+const allPosts = await getCollection('blog');
+const translation = allPosts.find(
+  (p) => p.data.slug === post.data.slug && p.data.lang === otherLang
+);
+
+const formattedDate = post.data.pubDate.toLocaleDateString(
+  lang === 'fr' ? 'fr-FR' : 'en-GB',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+---
+
+<Layout title={`${post.data.title} — Benjamin Manguet`} description={post.data.description}>
+  <main class="article-page" data-lang={lang}>
+    <div class="container">
+
+      <nav class="breadcrumb">
+        <a href={`/blog/${lang}`} class="breadcrumb__link">{t.blog_back_blog}</a>
+        {translation && (
+          <a href={`/blog/${otherLang}/${post.data.slug}`} class="lang-switch mono">
+            {otherLang === 'fr' ? 'FR' : 'EN'}
+          </a>
+        )}
+      </nav>
+
+      <div class="article-layout">
+        <article class="article-content">
+          <header class="article-header">
+            <span class="article-tag mono">{post.data.tags[0]}</span>
+            <h1 class="article-title">{post.data.title}</h1>
+            <p class="article-meta mono">
+              {t.blog_by} Benjamin Manguet
+              · {formattedDate}
+              · {readingTime} {t.blog_reading_time}
+            </p>
+            {post.data.tags.length > 1 && (
+              <div class="article-tags">
+                {post.data.tags.slice(1).map((tag) => (
+                  <span class="article-tag-sm mono">{tag}</span>
+                ))}
+              </div>
+            )}
+          </header>
+
+          <hr class="article-divider" />
+
+          <div class="prose">
+            <Content />
+          </div>
+        </article>
+
+        <aside class="article-sidebar">
+          <TableOfContents headings={headings} lang={lang} />
+        </aside>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .article-page {
+    padding: 80px 0 100px;
+    min-height: 100vh;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .breadcrumb__link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--purple-light);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .breadcrumb__link:hover { opacity: 0.75; }
+
+  .lang-switch {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--purple-light);
+    background: rgba(124, 58, 237, 0.15);
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    margin-left: auto;
+    transition: background 0.2s;
+  }
+
+  .lang-switch:hover { background: rgba(124, 58, 237, 0.3); }
+
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .article-header { margin-bottom: 32px; }
+
+  .article-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--purple-light);
+    background: rgba(124, 58, 237, 0.15);
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .article-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .article-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .article-tag-sm {
+    font-size: 0.62rem;
+    color: var(--purple-light);
+    background: rgba(124, 58, 237, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .article-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .prose { color: var(--text); line-height: 1.8; }
+
+  .prose :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--purple);
+    display: inline-block;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  .prose :global(a) {
+    color: var(--purple-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--bg-3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--purple-light);
+  }
+
+  .prose :global(pre) {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--purple);
+    padding-left: 1rem;
+    color: var(--text-muted);
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+
+  .prose :global(img) {
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    max-width: 100%;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 900px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+    }
+    .article-sidebar {
+      order: -1;
+    }
+  }
+</style>
