@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
 import TableOfContents from '../../../components/TableOfContents.astro';
 import { translations } from '../../../i18n/translations.ts';
 import type { Lang } from '../../../i18n/translations.ts';
@@ -35,13 +37,18 @@ const formattedDate = post.data.pubDate.toLocaleDateString(
 ---
 
 <Layout title={`${post.data.title} — Benjamin Manguet`} description={post.data.description}>
+  <Nav />
   <main class="article-page" data-lang={lang}>
     <div class="container">
 
       <nav class="breadcrumb">
         <a href={`/blog/${lang}`} class="breadcrumb__link">{t.blog_back_blog}</a>
         {translation && (
-          <a href={`/blog/${otherLang}/${post.data.slug}`} class="lang-switch mono">
+          <a
+            href={`/blog/${otherLang}/${post.data.slug}`}
+            class="lang-switch mono"
+            aria-label={otherLang === 'fr' ? 'Lire en français' : 'Read in English'}
+          >
             {otherLang === 'fr' ? 'FR' : 'EN'}
           </a>
         )}
@@ -80,6 +87,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString(
 
     </div>
   </main>
+  <Footer />
 </Layout>
 
 <style>
